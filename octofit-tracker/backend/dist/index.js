@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const database_js_1 = require("./database.js");
+const database_js_1 = require("./config/database.js");
 const models_js_1 = require("./models.js");
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT) || 8000;

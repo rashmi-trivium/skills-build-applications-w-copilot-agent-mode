@@ -1,5 +1,5 @@
 import express from 'express';
-import { connectToDatabase, mongoUri } from './database.js';
+import { connectToDatabase, mongoUri } from './config/database.js';
 import { Activity, LeaderboardEntry, Team, User, Workout } from './models.js';
 
 const app = express();
