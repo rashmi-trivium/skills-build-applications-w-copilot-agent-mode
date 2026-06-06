@@ -4,11 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const database_js_1 = require("./database.js");
 const models_js_1 = require("./models.js");
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT) || 8000;
-const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/octofit_db';
 const codespaceName = process.env.CODESPACE_NAME;
 const apiBaseUrl = codespaceName
     ? `https://${codespaceName}-8000.app.github.dev`
@@ -22,7 +21,7 @@ app.get('/api/health', (_req, res) => {
         status: 'ok',
         apiPort: port,
         apiBaseUrl,
-        mongoUri,
+        mongoUri: database_js_1.mongoUri,
     });
 });
 app.get('/api/users/', asyncHandler(async (_req, res) => {
@@ -69,8 +68,7 @@ app.use((error, _req, res, _next) => {
     console.error('API request failed:', error);
     res.status(500).json({ message: 'API request failed' });
 });
-mongoose_1.default
-    .connect(mongoUri)
+(0, database_js_1.connectToDatabase)()
     .then(() => {
     app.listen(port, () => {
         console.log(`OctoFit backend running on ${apiBaseUrl}`);
