@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../config/api.js'
+import { buildApiUrl, fetchCollection } from '../config/api.js'
+
+const teamsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : buildApiUrl('teams')
 
 function Teams() {
   const [teams, setTeams] = useState([])
@@ -9,7 +13,7 @@ function Teams() {
   useEffect(() => {
     let isMounted = true
 
-    fetchCollection('teams')
+    fetchCollection(teamsEndpoint)
       .then((data) => {
         if (isMounted) {
           setTeams(data)

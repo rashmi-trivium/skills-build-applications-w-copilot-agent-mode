@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../config/api.js'
+import { buildApiUrl, fetchCollection } from '../config/api.js'
+
+const usersEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : buildApiUrl('users')
 
 function Users() {
   const [users, setUsers] = useState([])
@@ -9,7 +13,7 @@ function Users() {
   useEffect(() => {
     let isMounted = true
 
-    fetchCollection('users')
+    fetchCollection(usersEndpoint)
       .then((data) => {
         if (isMounted) {
           setUsers(data)

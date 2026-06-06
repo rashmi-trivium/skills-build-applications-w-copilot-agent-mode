@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../config/api.js'
+import { buildApiUrl, fetchCollection } from '../config/api.js'
+
+const activitiesEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : buildApiUrl('activities')
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
   month: 'short',
@@ -21,7 +25,7 @@ function Activities() {
   useEffect(() => {
     let isMounted = true
 
-    fetchCollection('activities')
+    fetchCollection(activitiesEndpoint)
       .then((data) => {
         if (isMounted) {
           setActivities(data)

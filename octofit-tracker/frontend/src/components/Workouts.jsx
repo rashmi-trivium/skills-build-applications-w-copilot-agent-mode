@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../config/api.js'
+import { buildApiUrl, fetchCollection } from '../config/api.js'
+
+const workoutsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : buildApiUrl('workouts')
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([])
@@ -9,7 +13,7 @@ function Workouts() {
   useEffect(() => {
     let isMounted = true
 
-    fetchCollection('workouts')
+    fetchCollection(workoutsEndpoint)
       .then((data) => {
         if (isMounted) {
           setWorkouts(data)

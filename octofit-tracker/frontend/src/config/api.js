@@ -6,6 +6,10 @@ export const API_BASE_URL = codespaceName
   : (explicitApiBaseUrl ?? 'http://localhost:8000/api')
 
 export function buildApiUrl(component) {
+  if (/^https?:\/\//.test(component)) {
+    return component
+  }
+
   const normalizedComponent = component.replace(/^\/+|\/+$/g, '')
 
   return `${API_BASE_URL}/${normalizedComponent}/`

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../config/api.js'
+import { buildApiUrl, fetchCollection } from '../config/api.js'
+
+const leaderboardEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : buildApiUrl('leaderboard')
 
 function Leaderboard() {
   const [entries, setEntries] = useState([])
@@ -9,7 +13,7 @@ function Leaderboard() {
   useEffect(() => {
     let isMounted = true
 
-    fetchCollection('leaderboard')
+    fetchCollection(leaderboardEndpoint)
       .then((data) => {
         if (isMounted) {
           setEntries(data)
