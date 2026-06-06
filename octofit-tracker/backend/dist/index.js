@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const database_js_1 = require("./config/database.js");
 const models_js_1 = require("./models.js");
 const app = (0, express_1.default)();
@@ -12,15 +13,20 @@ const codespaceName = process.env.CODESPACE_NAME;
 const apiBaseUrl = codespaceName
     ? `https://${codespaceName}-8000.app.github.dev`
     : `http://localhost:${port}`;
+const frontendBaseUrl = codespaceName
+    ? `https://${codespaceName}-5173.app.github.dev`
+    : 'http://localhost:5173';
 const asyncHandler = (handler) => (req, res, next) => {
     Promise.resolve(handler(req, res, next)).catch(next);
 };
+app.use((0, cors_1.default)({ origin: frontendBaseUrl }));
 app.use(express_1.default.json());
 app.get('/api/health', (_req, res) => {
     res.json({
         status: 'ok',
         apiPort: port,
         apiBaseUrl,
+        frontendBaseUrl,
         mongoUri: database_js_1.mongoUri,
     });
 });
@@ -72,6 +78,7 @@ app.use((error, _req, res, _next) => {
     .then(() => {
     app.listen(port, () => {
         console.log(`OctoFit backend running on ${apiBaseUrl}`);
+        console.log(`Allowing frontend origin ${frontendBaseUrl}`);
     });
 })
     .catch((error) => {

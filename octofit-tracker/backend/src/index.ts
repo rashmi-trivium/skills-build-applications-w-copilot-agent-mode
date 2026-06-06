@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { connectToDatabase, mongoUri } from './config/database.js';
 import { Activity, LeaderboardEntry, Team, User, Workout } from './models.js';
 
@@ -8,6 +9,9 @@ const codespaceName = process.env.CODESPACE_NAME;
 const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : `http://localhost:${port}`;
+const frontendBaseUrl = codespaceName
+  ? `https://${codespaceName}-5173.app.github.dev`
+  : 'http://localhost:5173';
 
 const asyncHandler = (
   handler: express.RequestHandler,
@@ -15,6 +19,7 @@ const asyncHandler = (
   Promise.resolve(handler(req, res, next)).catch(next);
 };
 
+app.use(cors({ origin: frontendBaseUrl }));
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
@@ -22,6 +27,7 @@ app.get('/api/health', (_req, res) => {
     status: 'ok',
     apiPort: port,
     apiBaseUrl,
+    frontendBaseUrl,
     mongoUri,
   });
 });
@@ -115,6 +121,7 @@ connectToDatabase()
   .then(() => {
     app.listen(port, () => {
       console.log(`OctoFit backend running on ${apiBaseUrl}`);
+      console.log(`Allowing frontend origin ${frontendBaseUrl}`);
     });
   })
   .catch((error: unknown) => {
