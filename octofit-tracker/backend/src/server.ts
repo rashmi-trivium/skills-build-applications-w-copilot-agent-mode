@@ -28,7 +28,6 @@ app.get('/api/health', (_req, res) => {
     apiPort: port,
     apiBaseUrl,
     frontendBaseUrl,
-    mongoUri,
   });
 });
 
