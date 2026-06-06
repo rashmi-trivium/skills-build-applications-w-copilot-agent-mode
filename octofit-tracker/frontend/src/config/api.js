@@ -1,9 +1,14 @@
 const codespaceName = import.meta.env.VITE_CODESPACE_NAME
 const explicitApiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
+function normalizeApiBaseUrl(value) {
+  const trimmed = String(value).replace(/\/+$/, '')
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`
+}
+
 export const API_BASE_URL = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev/api`
-  : (explicitApiBaseUrl ?? 'http://localhost:8000/api')
+  : normalizeApiBaseUrl(explicitApiBaseUrl ?? 'http://localhost:8000/api')
 
 export function buildApiUrl(component) {
   if (/^https?:\/\//.test(component)) {
