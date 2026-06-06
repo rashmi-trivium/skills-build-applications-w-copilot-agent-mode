@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+  background: #f7f9fb;
+  color: #263241;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+#root {
+  min-height: 100svh;
+}

@@ -1,0 +1,155 @@
+.app-shell {
+  min-height: 100svh;
+  background: #f7f9fb;
+}
+
+.app-header {
+  background: #ffffff;
+  padding: 0 32px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand-logo {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.navbar-brand span {
+  color: #14213d;
+  font-weight: 700;
+}
+
+.nav-link {
+  color: #526070;
+  font-weight: 600;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: #e7f1ec;
+  color: #146c43;
+}
+
+.api-status {
+  overflow-wrap: anywhere;
+}
+
+.app-main {
+  padding: 32px;
+}
+
+.page-section {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.page-heading {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  color: #146c43;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-heading h1 {
+  color: #14213d;
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 4px 0 8px;
+}
+
+.page-heading p,
+.content-card p,
+.leaderboard-row p {
+  color: #657282;
+  margin: 0;
+}
+
+.content-card,
+.leaderboard-row {
+  background: #ffffff;
+  border: 1px solid #dde5ed;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.content-card h2,
+.leaderboard-row h2 {
+  color: #14213d;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.member-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.leaderboard-list {
+  display: grid;
+  gap: 12px;
+}
+
+.leaderboard-row {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 16px;
+}
+
+.leaderboard-row strong {
+  color: #146c43;
+  font-size: 1.6rem;
+}
+
+.rank {
+  align-items: center;
+  background: #14213d;
+  border-radius: 6px;
+  color: #ffffff;
+  display: inline-flex;
+  font-weight: 800;
+  height: 44px;
+  justify-content: center;
+  width: 56px;
+}
+
+.duration {
+  color: #146c43;
+  font-weight: 800;
+  margin-top: 16px;
+}
+
+.table {
+  --bs-table-bg: #ffffff;
+  border: 1px solid #dde5ed;
+}
+
+@media (max-width: 768px) {
+  .app-header,
+  .app-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .leaderboard-row strong {
+    grid-column: 2;
+  }
+}
